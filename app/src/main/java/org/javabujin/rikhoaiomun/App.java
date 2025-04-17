@@ -4,11 +4,16 @@
 package org.javabujin.rikhoaiomun;
 
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.logging.Logger;
 import org.antlr.v4.runtime.*;
 import org.javabujin.rikhoaiomun.antlr.generated.RikhoaiomunLexer;
 import org.javabujin.rikhoaiomun.antlr.generated.RikhoaiomunParser;
+import org.javabujin.rikhoaiomun.antlr.generated.RikhoaiomunParser.SpecificationContext;
+import org.javabujin.rikhoaiomun.antlr.generator.CodeGeneratorVisitor;
 
 public class App {
     public static void main(String[] args) {
@@ -19,24 +24,22 @@ public class App {
         try {
             // Use the class loader to get the resource as a stream.
             InputStream inputStream = Objects.requireNonNull(
-                    App.class.getResourceAsStream("exampleInputs/input1.txt"));
+                    App.class.getResourceAsStream("exampleInputs/input2.txt"));
 
-            // Test the input stream.
+            // 1) Lex and parse
             CharStream input = CharStreams.fromStream(inputStream);
-
-            // Create a lexer that feeds off of input CharStream
             RikhoaiomunLexer lexer = new RikhoaiomunLexer(input);
-
-            // Create a buffer of tokens pulled from the lexer
             CommonTokenStream tokens = new CommonTokenStream(lexer);
-
-            // Create a parser that feeds off the tokens buffer
             RikhoaiomunParser parser = new RikhoaiomunParser(tokens);
-    
-            // Print debug information
-            RikhoaiomunParser.SpecificationContext spec = parser.specification();
-            logger.info("Specification: " + spec.toStringTree(parser));
-            
+            RikhoaiomunParser.SpecificationContext tree = parser.specification();
+
+            // 2) Visit and generate code
+            Path outputDir = Paths.get("generatedRikhoaiomun");
+            Files.createDirectories(outputDir);
+            CodeGeneratorVisitor gen = new CodeGeneratorVisitor(outputDir);
+            gen.visit(tree);
+
+            System.out.println("Code generation complete. Output in: " + outputDir);
         } catch (Exception e) {
             logger.info("An error occurred.");
             e.printStackTrace();

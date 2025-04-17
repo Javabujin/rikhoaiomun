@@ -21,14 +21,15 @@ public class RikhoaiomunParser extends Parser {
 		T__9=10, T__10=11, T__11=12, IDENTIFIER=13, MULTILINE_STRING_LITERAL=14, 
 		NEWLINE=15, WS=16;
 	public static final int
-		RULE_specification = 0, RULE_systemDecl = 1, RULE_moduleDecl = 2, RULE_entityDecl = 3, 
-		RULE_fieldDecl = 4, RULE_featureDecl = 5, RULE_inputsDecl = 6, RULE_outputsDecl = 7, 
-		RULE_commentDecl = 8, RULE_qualifiedName = 9, RULE_type = 10;
+		RULE_specification = 0, RULE_systemDecl = 1, RULE_moduleDecl = 2, RULE_entityAndFeatureDecl = 3, 
+		RULE_entityDecl = 4, RULE_fieldDecl = 5, RULE_featureDecl = 6, RULE_inputsDecl = 7, 
+		RULE_outputsDecl = 8, RULE_commentDecl = 9, RULE_qualifiedName = 10, RULE_type = 11, 
+		RULE_name = 12;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"specification", "systemDecl", "moduleDecl", "entityDecl", "fieldDecl", 
-			"featureDecl", "inputsDecl", "outputsDecl", "commentDecl", "qualifiedName", 
-			"type"
+			"specification", "systemDecl", "moduleDecl", "entityAndFeatureDecl", 
+			"entityDecl", "fieldDecl", "featureDecl", "inputsDecl", "outputsDecl", 
+			"commentDecl", "qualifiedName", "type", "name"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -106,17 +107,11 @@ public class RikhoaiomunParser extends Parser {
 			return getRuleContext(ModuleDeclContext.class,0);
 		}
 		public TerminalNode EOF() { return getToken(RikhoaiomunParser.EOF, 0); }
-		public List<EntityDeclContext> entityDecl() {
-			return getRuleContexts(EntityDeclContext.class);
+		public List<EntityAndFeatureDeclContext> entityAndFeatureDecl() {
+			return getRuleContexts(EntityAndFeatureDeclContext.class);
 		}
-		public EntityDeclContext entityDecl(int i) {
-			return getRuleContext(EntityDeclContext.class,i);
-		}
-		public List<FeatureDeclContext> featureDecl() {
-			return getRuleContexts(FeatureDeclContext.class);
-		}
-		public FeatureDeclContext featureDecl(int i) {
-			return getRuleContext(FeatureDeclContext.class,i);
+		public EntityAndFeatureDeclContext entityAndFeatureDecl(int i) {
+			return getRuleContext(EntityAndFeatureDeclContext.class,i);
 		}
 		public SpecificationContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -136,39 +131,25 @@ public class RikhoaiomunParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(22);
+			setState(26);
 			systemDecl();
-			setState(23);
+			setState(27);
 			moduleDecl();
-			setState(33);
+			setState(29); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==T__2) {
+			do {
 				{
 				{
-				setState(24);
-				entityDecl();
 				setState(28);
+				entityAndFeatureDecl();
+				}
+				}
+				setState(31); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while (_la==T__5) {
-					{
-					{
-					setState(25);
-					featureDecl();
-					}
-					}
-					setState(30);
-					_errHandler.sync(this);
-					_la = _input.LA(1);
-				}
-				}
-				}
-				setState(35);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-			}
-			setState(36);
+			} while ( _la==T__2 );
+			setState(33);
 			match(EOF);
 			}
 		}
@@ -205,9 +186,9 @@ public class RikhoaiomunParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(38);
+			setState(35);
 			match(T__0);
-			setState(39);
+			setState(36);
 			qualifiedName();
 			}
 		}
@@ -244,9 +225,9 @@ public class RikhoaiomunParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(41);
+			setState(38);
 			match(T__1);
-			setState(42);
+			setState(39);
 			qualifiedName();
 			}
 		}
@@ -262,8 +243,68 @@ public class RikhoaiomunParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
+	public static class EntityAndFeatureDeclContext extends ParserRuleContext {
+		public EntityDeclContext entityDecl() {
+			return getRuleContext(EntityDeclContext.class,0);
+		}
+		public List<FeatureDeclContext> featureDecl() {
+			return getRuleContexts(FeatureDeclContext.class);
+		}
+		public FeatureDeclContext featureDecl(int i) {
+			return getRuleContext(FeatureDeclContext.class,i);
+		}
+		public EntityAndFeatureDeclContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_entityAndFeatureDecl; }
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof RikhoaiomunVisitor ) return ((RikhoaiomunVisitor<? extends T>)visitor).visitEntityAndFeatureDecl(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final EntityAndFeatureDeclContext entityAndFeatureDecl() throws RecognitionException {
+		EntityAndFeatureDeclContext _localctx = new EntityAndFeatureDeclContext(_ctx, getState());
+		enterRule(_localctx, 6, RULE_entityAndFeatureDecl);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(41);
+			entityDecl();
+			setState(45);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			while (_la==T__5) {
+				{
+				{
+				setState(42);
+				featureDecl();
+				}
+				}
+				setState(47);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
 	public static class EntityDeclContext extends ParserRuleContext {
-		public TerminalNode IDENTIFIER() { return getToken(RikhoaiomunParser.IDENTIFIER, 0); }
+		public NameContext name() {
+			return getRuleContext(NameContext.class,0);
+		}
 		public List<FieldDeclContext> fieldDecl() {
 			return getRuleContexts(FieldDeclContext.class);
 		}
@@ -283,28 +324,28 @@ public class RikhoaiomunParser extends Parser {
 
 	public final EntityDeclContext entityDecl() throws RecognitionException {
 		EntityDeclContext _localctx = new EntityDeclContext(_ctx, getState());
-		enterRule(_localctx, 6, RULE_entityDecl);
+		enterRule(_localctx, 8, RULE_entityDecl);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(44);
+			setState(48);
 			match(T__2);
-			setState(45);
-			match(IDENTIFIER);
-			setState(46);
+			setState(49);
+			name();
+			setState(50);
 			match(T__3);
-			setState(48); 
+			setState(52); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(47);
+				setState(51);
 				fieldDecl();
 				}
 				}
-				setState(50); 
+				setState(54); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( _la==T__4 );
@@ -340,17 +381,17 @@ public class RikhoaiomunParser extends Parser {
 
 	public final FieldDeclContext fieldDecl() throws RecognitionException {
 		FieldDeclContext _localctx = new FieldDeclContext(_ctx, getState());
-		enterRule(_localctx, 8, RULE_fieldDecl);
+		enterRule(_localctx, 10, RULE_fieldDecl);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(52);
+			setState(56);
 			match(T__4);
-			setState(53);
+			setState(57);
 			match(IDENTIFIER);
-			setState(54);
+			setState(58);
 			match(T__3);
-			setState(55);
+			setState(59);
 			type();
 			}
 		}
@@ -367,11 +408,12 @@ public class RikhoaiomunParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class FeatureDeclContext extends ParserRuleContext {
-		public List<TerminalNode> IDENTIFIER() { return getTokens(RikhoaiomunParser.IDENTIFIER); }
-		public TerminalNode IDENTIFIER(int i) {
-			return getToken(RikhoaiomunParser.IDENTIFIER, i);
+		public List<NameContext> name() {
+			return getRuleContexts(NameContext.class);
 		}
-		public TerminalNode NEWLINE() { return getToken(RikhoaiomunParser.NEWLINE, 0); }
+		public NameContext name(int i) {
+			return getRuleContext(NameContext.class,i);
+		}
 		public InputsDeclContext inputsDecl() {
 			return getRuleContext(InputsDeclContext.class,0);
 		}
@@ -394,51 +436,49 @@ public class RikhoaiomunParser extends Parser {
 
 	public final FeatureDeclContext featureDecl() throws RecognitionException {
 		FeatureDeclContext _localctx = new FeatureDeclContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_featureDecl);
+		enterRule(_localctx, 12, RULE_featureDecl);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(57);
-			match(T__5);
-			setState(58);
-			match(T__6);
-			setState(59);
-			match(IDENTIFIER);
-			setState(60);
-			match(T__7);
 			setState(61);
-			match(T__3);
+			match(T__5);
 			setState(62);
-			match(IDENTIFIER);
+			match(T__6);
 			setState(63);
-			match(NEWLINE);
+			name();
+			setState(64);
+			match(T__7);
 			setState(65);
+			match(T__3);
+			setState(66);
+			name();
+			setState(68);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==T__8) {
 				{
-				setState(64);
-				inputsDecl();
-				}
-			}
-
-			setState(68);
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			if (_la==T__9) {
-				{
 				setState(67);
-				outputsDecl();
+				inputsDecl();
 				}
 			}
 
 			setState(71);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (_la==T__10) {
+			if (_la==T__9) {
 				{
 				setState(70);
+				outputsDecl();
+				}
+			}
+
+			setState(74);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (_la==T__10) {
+				{
+				setState(73);
 				commentDecl();
 				}
 			}
@@ -458,7 +498,6 @@ public class RikhoaiomunParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class InputsDeclContext extends ParserRuleContext {
-		public TerminalNode NEWLINE() { return getToken(RikhoaiomunParser.NEWLINE, 0); }
 		public List<FieldDeclContext> fieldDecl() {
 			return getRuleContexts(FieldDeclContext.class);
 		}
@@ -478,26 +517,24 @@ public class RikhoaiomunParser extends Parser {
 
 	public final InputsDeclContext inputsDecl() throws RecognitionException {
 		InputsDeclContext _localctx = new InputsDeclContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_inputsDecl);
+		enterRule(_localctx, 14, RULE_inputsDecl);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(73);
+			setState(76);
 			match(T__8);
-			setState(74);
-			match(NEWLINE);
-			setState(76); 
+			setState(78); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(75);
+				setState(77);
 				fieldDecl();
 				}
 				}
-				setState(78); 
+				setState(80); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( _la==T__4 );
@@ -516,7 +553,6 @@ public class RikhoaiomunParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class OutputsDeclContext extends ParserRuleContext {
-		public TerminalNode NEWLINE() { return getToken(RikhoaiomunParser.NEWLINE, 0); }
 		public List<FieldDeclContext> fieldDecl() {
 			return getRuleContexts(FieldDeclContext.class);
 		}
@@ -536,26 +572,24 @@ public class RikhoaiomunParser extends Parser {
 
 	public final OutputsDeclContext outputsDecl() throws RecognitionException {
 		OutputsDeclContext _localctx = new OutputsDeclContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_outputsDecl);
+		enterRule(_localctx, 16, RULE_outputsDecl);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(80);
+			setState(82);
 			match(T__9);
-			setState(81);
-			match(NEWLINE);
-			setState(83); 
+			setState(84); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(82);
+				setState(83);
 				fieldDecl();
 				}
 				}
-				setState(85); 
+				setState(86); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( _la==T__4 );
@@ -588,13 +622,13 @@ public class RikhoaiomunParser extends Parser {
 
 	public final CommentDeclContext commentDecl() throws RecognitionException {
 		CommentDeclContext _localctx = new CommentDeclContext(_ctx, getState());
-		enterRule(_localctx, 16, RULE_commentDecl);
+		enterRule(_localctx, 18, RULE_commentDecl);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(87);
-			match(T__10);
 			setState(88);
+			match(T__10);
+			setState(89);
 			match(MULTILINE_STRING_LITERAL);
 			}
 		}
@@ -628,26 +662,26 @@ public class RikhoaiomunParser extends Parser {
 
 	public final QualifiedNameContext qualifiedName() throws RecognitionException {
 		QualifiedNameContext _localctx = new QualifiedNameContext(_ctx, getState());
-		enterRule(_localctx, 18, RULE_qualifiedName);
+		enterRule(_localctx, 20, RULE_qualifiedName);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(90);
+			setState(91);
 			match(IDENTIFIER);
-			setState(95);
+			setState(96);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==T__11) {
 				{
 				{
-				setState(91);
-				match(T__11);
 				setState(92);
+				match(T__11);
+				setState(93);
 				match(IDENTIFIER);
 				}
 				}
-				setState(97);
+				setState(98);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -680,11 +714,11 @@ public class RikhoaiomunParser extends Parser {
 
 	public final TypeContext type() throws RecognitionException {
 		TypeContext _localctx = new TypeContext(_ctx, getState());
-		enterRule(_localctx, 20, RULE_type);
+		enterRule(_localctx, 22, RULE_type);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(98);
+			setState(99);
 			match(IDENTIFIER);
 			}
 		}
@@ -699,62 +733,130 @@ public class RikhoaiomunParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
+	public static class NameContext extends ParserRuleContext {
+		public List<TerminalNode> IDENTIFIER() { return getTokens(RikhoaiomunParser.IDENTIFIER); }
+		public TerminalNode IDENTIFIER(int i) {
+			return getToken(RikhoaiomunParser.IDENTIFIER, i);
+		}
+		public List<TerminalNode> WS() { return getTokens(RikhoaiomunParser.WS); }
+		public TerminalNode WS(int i) {
+			return getToken(RikhoaiomunParser.WS, i);
+		}
+		public NameContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_name; }
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof RikhoaiomunVisitor ) return ((RikhoaiomunVisitor<? extends T>)visitor).visitName(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final NameContext name() throws RecognitionException {
+		NameContext _localctx = new NameContext(_ctx, getState());
+		enterRule(_localctx, 24, RULE_name);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(105); 
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			do {
+				{
+				{
+				setState(101);
+				match(IDENTIFIER);
+				setState(103);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				if (_la==WS) {
+					{
+					setState(102);
+					match(WS);
+					}
+				}
+
+				}
+				}
+				setState(107); 
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+			} while ( _la==IDENTIFIER );
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
 	public static final String _serializedATN =
-		"\u0004\u0001\u0010e\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0004\u0001\u0010n\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
 		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002"+
 		"\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007\u0002"+
-		"\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0001\u0000\u0001\u0000\u0001"+
-		"\u0000\u0001\u0000\u0005\u0000\u001b\b\u0000\n\u0000\f\u0000\u001e\t\u0000"+
-		"\u0005\u0000 \b\u0000\n\u0000\f\u0000#\t\u0000\u0001\u0000\u0001\u0000"+
-		"\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0002\u0001\u0002\u0001\u0002"+
-		"\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0004\u00031\b\u0003"+
-		"\u000b\u0003\f\u00032\u0001\u0004\u0001\u0004\u0001\u0004\u0001\u0004"+
-		"\u0001\u0004\u0001\u0005\u0001\u0005\u0001\u0005\u0001\u0005\u0001\u0005"+
-		"\u0001\u0005\u0001\u0005\u0001\u0005\u0003\u0005B\b\u0005\u0001\u0005"+
-		"\u0003\u0005E\b\u0005\u0001\u0005\u0003\u0005H\b\u0005\u0001\u0006\u0001"+
-		"\u0006\u0001\u0006\u0004\u0006M\b\u0006\u000b\u0006\f\u0006N\u0001\u0007"+
-		"\u0001\u0007\u0001\u0007\u0004\u0007T\b\u0007\u000b\u0007\f\u0007U\u0001"+
-		"\b\u0001\b\u0001\b\u0001\t\u0001\t\u0001\t\u0005\t^\b\t\n\t\f\ta\t\t\u0001"+
-		"\n\u0001\n\u0001\n\u0000\u0000\u000b\u0000\u0002\u0004\u0006\b\n\f\u000e"+
-		"\u0010\u0012\u0014\u0000\u0000b\u0000\u0016\u0001\u0000\u0000\u0000\u0002"+
-		"&\u0001\u0000\u0000\u0000\u0004)\u0001\u0000\u0000\u0000\u0006,\u0001"+
-		"\u0000\u0000\u0000\b4\u0001\u0000\u0000\u0000\n9\u0001\u0000\u0000\u0000"+
-		"\fI\u0001\u0000\u0000\u0000\u000eP\u0001\u0000\u0000\u0000\u0010W\u0001"+
-		"\u0000\u0000\u0000\u0012Z\u0001\u0000\u0000\u0000\u0014b\u0001\u0000\u0000"+
-		"\u0000\u0016\u0017\u0003\u0002\u0001\u0000\u0017!\u0003\u0004\u0002\u0000"+
-		"\u0018\u001c\u0003\u0006\u0003\u0000\u0019\u001b\u0003\n\u0005\u0000\u001a"+
-		"\u0019\u0001\u0000\u0000\u0000\u001b\u001e\u0001\u0000\u0000\u0000\u001c"+
-		"\u001a\u0001\u0000\u0000\u0000\u001c\u001d\u0001\u0000\u0000\u0000\u001d"+
-		" \u0001\u0000\u0000\u0000\u001e\u001c\u0001\u0000\u0000\u0000\u001f\u0018"+
-		"\u0001\u0000\u0000\u0000 #\u0001\u0000\u0000\u0000!\u001f\u0001\u0000"+
-		"\u0000\u0000!\"\u0001\u0000\u0000\u0000\"$\u0001\u0000\u0000\u0000#!\u0001"+
-		"\u0000\u0000\u0000$%\u0005\u0000\u0000\u0001%\u0001\u0001\u0000\u0000"+
-		"\u0000&\'\u0005\u0001\u0000\u0000\'(\u0003\u0012\t\u0000(\u0003\u0001"+
-		"\u0000\u0000\u0000)*\u0005\u0002\u0000\u0000*+\u0003\u0012\t\u0000+\u0005"+
-		"\u0001\u0000\u0000\u0000,-\u0005\u0003\u0000\u0000-.\u0005\r\u0000\u0000"+
-		".0\u0005\u0004\u0000\u0000/1\u0003\b\u0004\u00000/\u0001\u0000\u0000\u0000"+
-		"12\u0001\u0000\u0000\u000020\u0001\u0000\u0000\u000023\u0001\u0000\u0000"+
-		"\u00003\u0007\u0001\u0000\u0000\u000045\u0005\u0005\u0000\u000056\u0005"+
-		"\r\u0000\u000067\u0005\u0004\u0000\u000078\u0003\u0014\n\u00008\t\u0001"+
-		"\u0000\u0000\u00009:\u0005\u0006\u0000\u0000:;\u0005\u0007\u0000\u0000"+
-		";<\u0005\r\u0000\u0000<=\u0005\b\u0000\u0000=>\u0005\u0004\u0000\u0000"+
-		">?\u0005\r\u0000\u0000?A\u0005\u000f\u0000\u0000@B\u0003\f\u0006\u0000"+
-		"A@\u0001\u0000\u0000\u0000AB\u0001\u0000\u0000\u0000BD\u0001\u0000\u0000"+
-		"\u0000CE\u0003\u000e\u0007\u0000DC\u0001\u0000\u0000\u0000DE\u0001\u0000"+
-		"\u0000\u0000EG\u0001\u0000\u0000\u0000FH\u0003\u0010\b\u0000GF\u0001\u0000"+
-		"\u0000\u0000GH\u0001\u0000\u0000\u0000H\u000b\u0001\u0000\u0000\u0000"+
-		"IJ\u0005\t\u0000\u0000JL\u0005\u000f\u0000\u0000KM\u0003\b\u0004\u0000"+
-		"LK\u0001\u0000\u0000\u0000MN\u0001\u0000\u0000\u0000NL\u0001\u0000\u0000"+
-		"\u0000NO\u0001\u0000\u0000\u0000O\r\u0001\u0000\u0000\u0000PQ\u0005\n"+
-		"\u0000\u0000QS\u0005\u000f\u0000\u0000RT\u0003\b\u0004\u0000SR\u0001\u0000"+
-		"\u0000\u0000TU\u0001\u0000\u0000\u0000US\u0001\u0000\u0000\u0000UV\u0001"+
-		"\u0000\u0000\u0000V\u000f\u0001\u0000\u0000\u0000WX\u0005\u000b\u0000"+
-		"\u0000XY\u0005\u000e\u0000\u0000Y\u0011\u0001\u0000\u0000\u0000Z_\u0005"+
-		"\r\u0000\u0000[\\\u0005\f\u0000\u0000\\^\u0005\r\u0000\u0000][\u0001\u0000"+
-		"\u0000\u0000^a\u0001\u0000\u0000\u0000_]\u0001\u0000\u0000\u0000_`\u0001"+
-		"\u0000\u0000\u0000`\u0013\u0001\u0000\u0000\u0000a_\u0001\u0000\u0000"+
-		"\u0000bc\u0005\r\u0000\u0000c\u0015\u0001\u0000\u0000\u0000\t\u001c!2"+
-		"ADGNU_";
+		"\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b\u0002"+
+		"\f\u0007\f\u0001\u0000\u0001\u0000\u0001\u0000\u0004\u0000\u001e\b\u0000"+
+		"\u000b\u0000\f\u0000\u001f\u0001\u0000\u0001\u0000\u0001\u0001\u0001\u0001"+
+		"\u0001\u0001\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0003\u0001\u0003"+
+		"\u0005\u0003,\b\u0003\n\u0003\f\u0003/\t\u0003\u0001\u0004\u0001\u0004"+
+		"\u0001\u0004\u0001\u0004\u0004\u00045\b\u0004\u000b\u0004\f\u00046\u0001"+
+		"\u0005\u0001\u0005\u0001\u0005\u0001\u0005\u0001\u0005\u0001\u0006\u0001"+
+		"\u0006\u0001\u0006\u0001\u0006\u0001\u0006\u0001\u0006\u0001\u0006\u0003"+
+		"\u0006E\b\u0006\u0001\u0006\u0003\u0006H\b\u0006\u0001\u0006\u0003\u0006"+
+		"K\b\u0006\u0001\u0007\u0001\u0007\u0004\u0007O\b\u0007\u000b\u0007\f\u0007"+
+		"P\u0001\b\u0001\b\u0004\bU\b\b\u000b\b\f\bV\u0001\t\u0001\t\u0001\t\u0001"+
+		"\n\u0001\n\u0001\n\u0005\n_\b\n\n\n\f\nb\t\n\u0001\u000b\u0001\u000b\u0001"+
+		"\f\u0001\f\u0003\fh\b\f\u0004\fj\b\f\u000b\f\f\fk\u0001\f\u0000\u0000"+
+		"\r\u0000\u0002\u0004\u0006\b\n\f\u000e\u0010\u0012\u0014\u0016\u0018\u0000"+
+		"\u0000k\u0000\u001a\u0001\u0000\u0000\u0000\u0002#\u0001\u0000\u0000\u0000"+
+		"\u0004&\u0001\u0000\u0000\u0000\u0006)\u0001\u0000\u0000\u0000\b0\u0001"+
+		"\u0000\u0000\u0000\n8\u0001\u0000\u0000\u0000\f=\u0001\u0000\u0000\u0000"+
+		"\u000eL\u0001\u0000\u0000\u0000\u0010R\u0001\u0000\u0000\u0000\u0012X"+
+		"\u0001\u0000\u0000\u0000\u0014[\u0001\u0000\u0000\u0000\u0016c\u0001\u0000"+
+		"\u0000\u0000\u0018i\u0001\u0000\u0000\u0000\u001a\u001b\u0003\u0002\u0001"+
+		"\u0000\u001b\u001d\u0003\u0004\u0002\u0000\u001c\u001e\u0003\u0006\u0003"+
+		"\u0000\u001d\u001c\u0001\u0000\u0000\u0000\u001e\u001f\u0001\u0000\u0000"+
+		"\u0000\u001f\u001d\u0001\u0000\u0000\u0000\u001f \u0001\u0000\u0000\u0000"+
+		" !\u0001\u0000\u0000\u0000!\"\u0005\u0000\u0000\u0001\"\u0001\u0001\u0000"+
+		"\u0000\u0000#$\u0005\u0001\u0000\u0000$%\u0003\u0014\n\u0000%\u0003\u0001"+
+		"\u0000\u0000\u0000&\'\u0005\u0002\u0000\u0000\'(\u0003\u0014\n\u0000("+
+		"\u0005\u0001\u0000\u0000\u0000)-\u0003\b\u0004\u0000*,\u0003\f\u0006\u0000"+
+		"+*\u0001\u0000\u0000\u0000,/\u0001\u0000\u0000\u0000-+\u0001\u0000\u0000"+
+		"\u0000-.\u0001\u0000\u0000\u0000.\u0007\u0001\u0000\u0000\u0000/-\u0001"+
+		"\u0000\u0000\u000001\u0005\u0003\u0000\u000012\u0003\u0018\f\u000024\u0005"+
+		"\u0004\u0000\u000035\u0003\n\u0005\u000043\u0001\u0000\u0000\u000056\u0001"+
+		"\u0000\u0000\u000064\u0001\u0000\u0000\u000067\u0001\u0000\u0000\u0000"+
+		"7\t\u0001\u0000\u0000\u000089\u0005\u0005\u0000\u00009:\u0005\r\u0000"+
+		"\u0000:;\u0005\u0004\u0000\u0000;<\u0003\u0016\u000b\u0000<\u000b\u0001"+
+		"\u0000\u0000\u0000=>\u0005\u0006\u0000\u0000>?\u0005\u0007\u0000\u0000"+
+		"?@\u0003\u0018\f\u0000@A\u0005\b\u0000\u0000AB\u0005\u0004\u0000\u0000"+
+		"BD\u0003\u0018\f\u0000CE\u0003\u000e\u0007\u0000DC\u0001\u0000\u0000\u0000"+
+		"DE\u0001\u0000\u0000\u0000EG\u0001\u0000\u0000\u0000FH\u0003\u0010\b\u0000"+
+		"GF\u0001\u0000\u0000\u0000GH\u0001\u0000\u0000\u0000HJ\u0001\u0000\u0000"+
+		"\u0000IK\u0003\u0012\t\u0000JI\u0001\u0000\u0000\u0000JK\u0001\u0000\u0000"+
+		"\u0000K\r\u0001\u0000\u0000\u0000LN\u0005\t\u0000\u0000MO\u0003\n\u0005"+
+		"\u0000NM\u0001\u0000\u0000\u0000OP\u0001\u0000\u0000\u0000PN\u0001\u0000"+
+		"\u0000\u0000PQ\u0001\u0000\u0000\u0000Q\u000f\u0001\u0000\u0000\u0000"+
+		"RT\u0005\n\u0000\u0000SU\u0003\n\u0005\u0000TS\u0001\u0000\u0000\u0000"+
+		"UV\u0001\u0000\u0000\u0000VT\u0001\u0000\u0000\u0000VW\u0001\u0000\u0000"+
+		"\u0000W\u0011\u0001\u0000\u0000\u0000XY\u0005\u000b\u0000\u0000YZ\u0005"+
+		"\u000e\u0000\u0000Z\u0013\u0001\u0000\u0000\u0000[`\u0005\r\u0000\u0000"+
+		"\\]\u0005\f\u0000\u0000]_\u0005\r\u0000\u0000^\\\u0001\u0000\u0000\u0000"+
+		"_b\u0001\u0000\u0000\u0000`^\u0001\u0000\u0000\u0000`a\u0001\u0000\u0000"+
+		"\u0000a\u0015\u0001\u0000\u0000\u0000b`\u0001\u0000\u0000\u0000cd\u0005"+
+		"\r\u0000\u0000d\u0017\u0001\u0000\u0000\u0000eg\u0005\r\u0000\u0000fh"+
+		"\u0005\u0010\u0000\u0000gf\u0001\u0000\u0000\u0000gh\u0001\u0000\u0000"+
+		"\u0000hj\u0001\u0000\u0000\u0000ie\u0001\u0000\u0000\u0000jk\u0001\u0000"+
+		"\u0000\u0000ki\u0001\u0000\u0000\u0000kl\u0001\u0000\u0000\u0000l\u0019"+
+		"\u0001\u0000\u0000\u0000\u000b\u001f-6DGJPV`gk";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

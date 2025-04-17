@@ -1,28 +1,32 @@
 grammar Rikhoaiomun;
 
-specification: systemDecl moduleDecl (entityDecl featureDecl*)* EOF;
+specification: systemDecl moduleDecl entityAndFeatureDecl+ EOF;
 
 systemDecl: '@System' qualifiedName;
 moduleDecl: '@Module' qualifiedName;
 
-entityDecl: '@Entity' IDENTIFIER ':' fieldDecl+;
+entityAndFeatureDecl: entityDecl featureDecl*;
+
+entityDecl: '@Entity' name ':' fieldDecl+;
 
 fieldDecl: '-' IDENTIFIER ':' type;
 
 featureDecl:
-    '@Feature' '(' IDENTIFIER ')' ':' IDENTIFIER NEWLINE
+    '@Feature' '(' name ')' ':' name
     inputsDecl?
     outputsDecl?
     commentDecl?;
 
-inputsDecl: '@Inputs:' NEWLINE fieldDecl+;
-outputsDecl: '@Outputs:' NEWLINE fieldDecl+;
+inputsDecl: '@Inputs:' fieldDecl+;
+outputsDecl: '@Outputs:' fieldDecl+;
 
 commentDecl: '@Comment:' MULTILINE_STRING_LITERAL;
 
 qualifiedName: IDENTIFIER ('.' IDENTIFIER)*;
 
 type: IDENTIFIER;
+
+name: (IDENTIFIER WS?)+;
 
 IDENTIFIER: [a-zA-Z_][a-zA-Z_0-9]*;
 
