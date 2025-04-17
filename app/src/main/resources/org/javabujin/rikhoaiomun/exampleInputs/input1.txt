@@ -1,0 +1,20 @@
+@System com.mysystem
+@Module user
+
+@Entity User:
+- id: UUID
+- email: String
+- passwordHash: String
+- loginAttempts: Integer
+- lockedUntil: Timestamp
+
+@Feature(User): Reset Password
+@Inputs:
+- email: String
+@Outputs:
+- successMessage: String
+- resetToken: String
+@Comment:
+"""
+Example comment.
+"""
