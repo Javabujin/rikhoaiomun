@@ -1,0 +1,26 @@
+@System App.Core
+@Module Auth.Login
+
+@Entity User Account:
+- username : String
+- password : String
+
+@Feature(User Account): Reset Password
+@Inputs:
+- email : String
+@Outputs:
+- success : boolean
+@Comment:
+"""
+Send reset link to user email.
+Must verify existence of user.
+"""
+
+@Entity Admin Account:
+- username : String
+- password : String
+- adminSecretSauce : String
+
+@Feature(Admin Account) : God mode
+@Outputs:
+- idk : String
