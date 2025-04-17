@@ -8,13 +8,15 @@
 - loginAttempts: Integer
 - lockedUntil: Timestamp
 
-@Feature(User): Reset Password
-@Inputs:
-- email: String
-@Outputs:
-- successMessage: String
-- resetToken: String
-@Comment:
-"""
-Example comment.
-"""
+{
+    @Feature: Reset Password
+    @Inputs:
+    - email: String
+    @Outputs:
+    - successMessage: String
+    - resetToken: String
+    @Comment:
+    """
+    Example comment.
+    """
+}

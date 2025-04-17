@@ -39,13 +39,6 @@ public class RikhoaiomunBaseVisitor<T> extends AbstractParseTreeVisitor<T> imple
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitEntityAndFeatureDecl(RikhoaiomunParser.EntityAndFeatureDeclContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
 	@Override public T visitEntityDecl(RikhoaiomunParser.EntityDeclContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}

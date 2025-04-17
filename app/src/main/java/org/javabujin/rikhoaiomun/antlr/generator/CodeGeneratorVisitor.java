@@ -82,7 +82,7 @@ public class CodeGeneratorVisitor extends RikhoaiomunBaseVisitor<Void> {
         // 8) Emit toString() method
         genToString(ctx);
 
-        // 9) Close class
+        // 10) Close class
         out.println("}");
         out.close();
         return null;
@@ -159,7 +159,7 @@ public class CodeGeneratorVisitor extends RikhoaiomunBaseVisitor<Void> {
     @Override
     public Void visitFeatureDecl(RikhoaiomunParser.FeatureDeclContext ctx) {
         // Normalize method name: "Reset Password" → "resetPassword"
-        String raw = ctx.name(1).getText(); // second name() is the method name
+        String raw = ctx.name().getText(); // second name() is the method name
         String methodName = normalizeMethodName(raw);
 
         // 1) Handle inputs

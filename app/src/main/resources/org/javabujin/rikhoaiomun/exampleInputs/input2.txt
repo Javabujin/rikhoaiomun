@@ -4,23 +4,36 @@
 @Entity User Account:
 - username : String
 - password : String
+{
+    @Feature: Reset Password
+    @Inputs:
+    - email : String
+    @Outputs:
+    - success : boolean
+    @Comment:
+    """
+    Send reset link to user email.
+    Must verify existence of user.
+    """
 
-@Feature(User Account): Reset Password
-@Inputs:
-- email : String
-@Outputs:
-- success : boolean
-@Comment:
-"""
-Send reset link to user email.
-Must verify existence of user.
-"""
+    @Feature: Change Password
+    @Inputs:
+    - email : String
+    @Outputs:
+    - success : boolean
+    - somethingElse : String
+    @Comment:
+    """
+    Another method.
+    """
+}
 
 @Entity Admin Account:
 - username : String
 - password : String
 - adminSecretSauce : String
-
-@Feature(Admin Account) : God mode
-@Outputs:
-- idk : String
+{
+    @Feature : God mode
+    @Outputs:
+    - idk : String
+}

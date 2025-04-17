@@ -1,18 +1,16 @@
 grammar Rikhoaiomun;
 
-specification: systemDecl moduleDecl entityAndFeatureDecl+ EOF;
+specification: systemDecl moduleDecl entityDecl+ EOF;
 
 systemDecl: '@System' qualifiedName;
 moduleDecl: '@Module' qualifiedName;
 
-entityAndFeatureDecl: entityDecl featureDecl*;
-
-entityDecl: '@Entity' name ':' fieldDecl+;
+entityDecl: '@Entity' name ':' fieldDecl+ '{' featureDecl* '}';
 
 fieldDecl: '-' IDENTIFIER ':' type;
 
 featureDecl:
-    '@Feature' '(' name ')' ':' name
+    '@Feature' ':' name
     inputsDecl?
     outputsDecl?
     commentDecl?;

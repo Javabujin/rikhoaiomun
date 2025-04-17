@@ -29,12 +29,6 @@ public interface RikhoaiomunVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitModuleDecl(RikhoaiomunParser.ModuleDeclContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link RikhoaiomunParser#entityAndFeatureDecl}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitEntityAndFeatureDecl(RikhoaiomunParser.EntityAndFeatureDeclContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link RikhoaiomunParser#entityDecl}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
