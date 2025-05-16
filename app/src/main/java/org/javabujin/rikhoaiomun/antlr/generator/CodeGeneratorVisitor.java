@@ -9,15 +9,22 @@ import java.nio.file.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
+// CodeGeneratorVisitor traverses the parsed AST and generates Java code for entities, modules, and features.
+// It outputs Java classes with fields, constructors, getters/setters, and feature methods based on the grammar.
 public class CodeGeneratorVisitor extends RikhoaiomunBaseVisitor<Void> {
+    // Output directory for generated files
     private final Path outputDir;
+    // Current package path (e.g., app/core/auth/login)
     private String currentPackage;
+    // Writer for the current output file
     private PrintWriter out;
 
+    // Initialize with the output directory
     public CodeGeneratorVisitor(Path outputDir) {
         this.outputDir = outputDir;
     }
 
+    // Visit system declaration and set the base package
     @Override
     public Void visitSystemDecl(RikhoaiomunParser.SystemDeclContext ctx) {
         // e.g. App.Core → app.core
@@ -26,6 +33,7 @@ public class CodeGeneratorVisitor extends RikhoaiomunBaseVisitor<Void> {
         return null; // no actual file yet
     }
 
+    // Visit module declaration and append to the package path
     @Override
     public Void visitModuleDecl(RikhoaiomunParser.ModuleDeclContext ctx) {
         // append module to the package path: Auth.Login → auth/login
@@ -35,6 +43,7 @@ public class CodeGeneratorVisitor extends RikhoaiomunBaseVisitor<Void> {
         return null;
     }
 
+    // Visit entity declaration and generate a Java class for the entity
     @Override
     public Void visitEntityDecl(RikhoaiomunParser.EntityDeclContext ctx) {
         // 1) Normalize the entity name: "User Account" → "UserAccount"
@@ -88,6 +97,7 @@ public class CodeGeneratorVisitor extends RikhoaiomunBaseVisitor<Void> {
         return null;
     }
 
+    // Generate a toString() method for the entity
     private void genToString(EntityDeclContext ctx) {
         out.println("    @Override");
         out.printf("    public String toString() {%n");
@@ -102,6 +112,7 @@ public class CodeGeneratorVisitor extends RikhoaiomunBaseVisitor<Void> {
         out.println();
     }
 
+    // Generate a constructor with all fields as parameters
     private void genFullConstructor(EntityDeclContext ctx) {
         out.printf("    public %s(", ctx.name().getText());
         String params = ctx.fieldDecl().stream()
@@ -116,6 +127,7 @@ public class CodeGeneratorVisitor extends RikhoaiomunBaseVisitor<Void> {
         out.println();
     }
 
+    // Generate a default constructor initializing fields to default values
     private void genDefaultConstructor(EntityDeclContext ctx) {
         out.println("    public " + ctx.name().getText() + "() {");
         for (RikhoaiomunParser.FieldDeclContext fctx : ctx.fieldDecl()) {
@@ -135,6 +147,7 @@ public class CodeGeneratorVisitor extends RikhoaiomunBaseVisitor<Void> {
         out.println();
     }
 
+    // Generate getters and setters for all fields
     private void genGettersAndSetters(EntityDeclContext ctx) {
         for (RikhoaiomunParser.FieldDeclContext fctx : ctx.fieldDecl()) {
             String fieldName = fctx.IDENTIFIER().getText();
@@ -156,6 +169,7 @@ public class CodeGeneratorVisitor extends RikhoaiomunBaseVisitor<Void> {
         }
     }
 
+    // Visit feature declaration and generate a method stub for the feature
     @Override
     public Void visitFeatureDecl(RikhoaiomunParser.FeatureDeclContext ctx) {
         // Normalize method name: "Reset Password" → "resetPassword"
@@ -210,18 +224,21 @@ public class CodeGeneratorVisitor extends RikhoaiomunBaseVisitor<Void> {
     }
 
     // --- helper methods ---
+    // Normalize a raw string to a class name (e.g., "User Account" → "UserAccount")
     private String normalizeClassName(String raw) {
         return Arrays.stream(raw.split("\\s+"))
                 .map(w -> Character.toUpperCase(w.charAt(0)) + w.substring(1))
                 .collect(Collectors.joining());
     }
 
+    // Normalize a raw string to a method name (e.g., "Reset Password" → "resetPassword")
     private String normalizeMethodName(String raw) {
         return Arrays.stream(raw.split("\\s+"))
                 .map(w -> Character.toLowerCase(w.charAt(0)) + w.substring(1))
                 .collect(Collectors.joining());
     }
 
+    // Emit a static output DTO class for feature methods with multiple outputs
     private void emitOutputDTO(List<RikhoaiomunParser.FieldDeclContext> outs,
             String dtoName) {
         out.printf("    public static class %s {%n", dtoName);

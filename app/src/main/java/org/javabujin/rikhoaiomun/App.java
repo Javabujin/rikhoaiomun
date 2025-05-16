@@ -14,6 +14,9 @@ import org.javabujin.rikhoaiomun.antlr.generated.RikhoaiomunLexer;
 import org.javabujin.rikhoaiomun.antlr.generated.RikhoaiomunParser;
 import org.javabujin.rikhoaiomun.antlr.generated.RikhoaiomunParser.SpecificationContext;
 import org.javabujin.rikhoaiomun.antlr.generator.CodeGeneratorVisitor;
+import org.javabujin.rikhoaiomun.antlr.generator.HtmlFormGeneratorVisitor;
+import org.javabujin.rikhoaiomun.antlr.generator.PlantUMLGeneratorVisitor;
+import org.javabujin.rikhoaiomun.antlr.generator.SqlSchemaGeneratorVisitor;
 
 public class App {
     public static void main(String[] args) {
@@ -37,7 +40,14 @@ public class App {
             Path outputDir = Paths.get("generatedRikhoaiomun");
             Files.createDirectories(outputDir);
             CodeGeneratorVisitor gen = new CodeGeneratorVisitor(outputDir);
+            HtmlFormGeneratorVisitor htmlGen = new HtmlFormGeneratorVisitor(outputDir);
+            PlantUMLGeneratorVisitor plantUMLGen = new PlantUMLGeneratorVisitor(outputDir);
+            SqlSchemaGeneratorVisitor sqlGen = new SqlSchemaGeneratorVisitor(outputDir);
+            
             gen.visit(tree);
+            htmlGen.visit(tree);
+            plantUMLGen.visit(tree);
+            sqlGen.visit(tree);
 
             System.out.println("Code generation complete. Output in: " + outputDir);
         } catch (Exception e) {

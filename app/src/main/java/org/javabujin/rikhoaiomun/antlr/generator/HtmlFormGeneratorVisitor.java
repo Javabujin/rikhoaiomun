@@ -8,14 +8,20 @@ import java.io.*;
 import java.nio.file.*;
 import java.util.*;
 
+// HtmlFormGeneratorVisitor traverses the parsed AST and generates HTML forms for each entity.
+// It outputs a simple HTML form for each entity, mapping fields to appropriate input types.
 public class HtmlFormGeneratorVisitor extends RikhoaiomunBaseVisitor<Void> {
+    // Output directory for generated HTML files
     private final Path outputDir;
+    // Current package path (e.g., app/core/auth/login)
     private String currentPackage;
 
+    // Initialize with the output directory
     public HtmlFormGeneratorVisitor(Path outputDir) {
         this.outputDir = outputDir;
     }
 
+    // Visit system declaration and set the base package
     @Override
     public Void visitSystemDecl(RikhoaiomunParser.SystemDeclContext ctx) {
         currentPackage = ctx.qualifiedName().getText()
@@ -23,6 +29,7 @@ public class HtmlFormGeneratorVisitor extends RikhoaiomunBaseVisitor<Void> {
         return null;
     }
 
+    // Visit module declaration and append to the package path
     @Override
     public Void visitModuleDecl(RikhoaiomunParser.ModuleDeclContext ctx) {
         String modulePath = ctx.qualifiedName().getText()
@@ -31,6 +38,7 @@ public class HtmlFormGeneratorVisitor extends RikhoaiomunBaseVisitor<Void> {
         return null;
     }
 
+    // Visit entity declaration and generate an HTML form for the entity
     @Override
     public Void visitEntityDecl(RikhoaiomunParser.EntityDeclContext ctx) {
         String raw = ctx.name().getText();
@@ -65,10 +73,12 @@ public class HtmlFormGeneratorVisitor extends RikhoaiomunBaseVisitor<Void> {
         return null;
     }
 
+    // Normalize a raw string to a class name (e.g., "User Account" → "UserAccount")
     private String normalizeClassName(String raw) {
         return Arrays.stream(raw.split("\\s+")).map(w -> Character.toUpperCase(w.charAt(0)) + w.substring(1)).collect(java.util.stream.Collectors.joining());
     }
 
+    // Map a Java type to an HTML input type
     private String mapTypeToInput(String type) {
         switch (type) {
             case "String": return "text";

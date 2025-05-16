@@ -7,6 +7,7 @@
 - passwordHash: String
 - loginAttempts: Integer
 - lockedUntil: Timestamp
+- isPremium: boolean
 
 {
     @Feature: Reset Password
