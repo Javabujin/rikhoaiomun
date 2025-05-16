@@ -1,0 +1,40 @@
+@System UniversitySystem
+@Module CourseEnrollment
+
+@Entity Course:
+- courseId: String
+- name: String
+- credits: Integer
+
+{
+    @Feature: Add Course
+    @Inputs:
+    - name: String
+    - credits: Integer
+    @Outputs:
+    - courseId: String
+    - success: boolean
+    @Comment:
+    """
+    Adds a new course to the university system.
+    """
+}
+
+@Entity Enrollment:
+- enrollmentId: String
+- studentId: String
+- courseId: String
+
+{
+    @Feature: Enroll Student
+    @Inputs:
+    - studentId: String
+    - courseId: String
+    @Outputs:
+    - enrollmentId: String
+    - success: boolean
+    @Comment:
+    """
+    Enrolls a student in a course.
+    """
+}

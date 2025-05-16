@@ -1,0 +1,42 @@
+@System InventorySystem
+@Module ProductManagement
+
+@Entity Product:
+- id: UUID
+- name: String
+- price: Double
+- stock: Integer
+
+{
+    @Feature: Add Product
+    @Inputs:
+    - name: String
+    - price: Double
+    - stock: Integer
+    @Outputs:
+    - productId: UUID
+    - success: boolean
+    @Comment:
+    """
+    Adds a new product to the inventory.
+    """
+}
+
+@Entity Supplier:
+- id: UUID
+- companyName: String
+- contactEmail: String
+
+{
+    @Feature: Register Supplier
+    @Inputs:
+    - companyName: String
+    - contactEmail: String
+    @Outputs:
+    - supplierId: UUID
+    - success: boolean
+    @Comment:
+    """
+    Registers a new supplier in the system.
+    """
+}

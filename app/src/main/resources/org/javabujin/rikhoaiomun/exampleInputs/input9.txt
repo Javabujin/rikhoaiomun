@@ -1,0 +1,40 @@
+@System RestaurantSystem
+@Module OrderManagement
+
+@Entity MenuItem:
+- itemId: String
+- name: String
+- price: Double
+
+{
+    @Feature: Add Menu Item
+    @Inputs:
+    - name: String
+    - price: Double
+    @Outputs:
+    - itemId: String
+    - success: boolean
+    @Comment:
+    """
+    Adds a new item to the menu.
+    """
+}
+
+@Entity Order:
+- orderId: String
+- table: Integer
+- total: Double
+
+{
+    @Feature: Place Order
+    @Inputs:
+    - table: Integer
+    - items: List<String>
+    @Outputs:
+    - orderId: String
+    - success: boolean
+    @Comment:
+    """
+    Places a new order for a table.
+    """
+}

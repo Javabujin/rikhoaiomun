@@ -1,0 +1,39 @@
+@System SchoolApp
+@Module Student.Registration
+
+@Entity Student:
+- studentId: String
+- name: String
+- grade: Integer
+
+{
+    @Feature: Register Student
+    @Inputs:
+    - name: String
+    - grade: Integer
+    @Outputs:
+    - studentId: String
+    - success: boolean
+    @Comment:
+    """
+    Registers a new student and assigns a unique student ID.
+    """
+}
+
+@Entity Teacher:
+- teacherId: String
+- name: String
+- subject: String
+
+{
+    @Feature: Assign Subject
+    @Inputs:
+    - teacherId: String
+    - subject: String
+    @Outputs:
+    - success: boolean
+    @Comment:
+    """
+    Assigns a subject to a teacher.
+    """
+}

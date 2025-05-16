@@ -1,0 +1,40 @@
+@System HospitalSystem
+@Module PatientRecords
+
+@Entity Patient:
+- patientId: String
+- name: String
+- dob: Date
+- admitted: boolean
+
+{
+    @Feature: Admit Patient
+    @Inputs:
+    - name: String
+    - dob: Date
+    @Outputs:
+    - patientId: String
+    - success: boolean
+    @Comment:
+    """
+    Admits a new patient to the hospital.
+    """
+}
+
+@Entity Doctor:
+- doctorId: String
+- name: String
+- specialty: String
+
+{
+    @Feature: Assign Patient
+    @Inputs:
+    - doctorId: String
+    - patientId: String
+    @Outputs:
+    - success: boolean
+    @Comment:
+    """
+    Assigns a patient to a doctor.
+    """
+}

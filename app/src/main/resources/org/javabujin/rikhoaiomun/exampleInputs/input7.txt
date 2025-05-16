@@ -1,0 +1,42 @@
+@System BankingSystem
+@Module AccountManagement
+
+@Entity Account:
+- accountId: String
+- owner: String
+- balance: Double
+
+{
+    @Feature: Deposit
+    @Inputs:
+    - accountId: String
+    - amount: Double
+    @Outputs:
+    - newBalance: Double
+    - success: boolean
+    @Comment:
+    """
+    Deposits money into an account.
+    """
+}
+
+@Entity Transaction:
+- transactionId: String
+- accountId: String
+- amount: Double
+- type: String
+
+{
+    @Feature: Record Transaction
+    @Inputs:
+    - accountId: String
+    - amount: Double
+    - type: String
+    @Outputs:
+    - transactionId: String
+    - success: boolean
+    @Comment:
+    """
+    Records a transaction for an account.
+    """
+}

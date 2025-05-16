@@ -1,0 +1,41 @@
+@System LibrarySystem
+@Module BookLending
+
+@Entity Book:
+- isbn: String
+- title: String
+- author: String
+- available: boolean
+
+{
+    @Feature: Lend Book
+    @Inputs:
+    - isbn: String
+    - memberId: String
+    @Outputs:
+    - success: boolean
+    - dueDate: Date
+    @Comment:
+    """
+    Lends a book to a member if available.
+    """
+}
+
+@Entity Member:
+- memberId: String
+- name: String
+- email: String
+
+{
+    @Feature: Register Member
+    @Inputs:
+    - name: String
+    - email: String
+    @Outputs:
+    - memberId: String
+    - success: boolean
+    @Comment:
+    """
+    Registers a new library member.
+    """
+}

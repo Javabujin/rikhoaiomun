@@ -27,7 +27,7 @@ public class App {
         try {
             // Use the class loader to get the resource as a stream.
             InputStream inputStream = Objects.requireNonNull(
-                    App.class.getResourceAsStream("exampleInputs/input2.txt"));
+                    App.class.getResourceAsStream("exampleInputs/input10.txt"));
 
             // 1) Lex and parse
             CharStream input = CharStreams.fromStream(inputStream);

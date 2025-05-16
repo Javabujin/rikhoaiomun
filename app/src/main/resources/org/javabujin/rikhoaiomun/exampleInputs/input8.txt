@@ -1,0 +1,40 @@
+@System CinemaSystem
+@Module Ticketing
+
+@Entity Movie:
+- movieId: String
+- title: String
+- duration: Integer
+
+{
+    @Feature: Add Movie
+    @Inputs:
+    - title: String
+    - duration: Integer
+    @Outputs:
+    - movieId: String
+    - success: boolean
+    @Comment:
+    """
+    Adds a new movie to the cinema system.
+    """
+}
+
+@Entity Ticket:
+- ticketId: String
+- movieId: String
+- seat: String
+
+{
+    @Feature: Book Ticket
+    @Inputs:
+    - movieId: String
+    - seat: String
+    @Outputs:
+    - ticketId: String
+    - success: boolean
+    @Comment:
+    """
+    Books a ticket for a movie.
+    """
+}
